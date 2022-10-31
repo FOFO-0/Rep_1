@@ -1,0 +1,18 @@
+create or replace function calc_sal_upto(p_date date,p_sal number)
+return number
+is 
+v_cursal number;
+v_lastday number;
+
+begin
+
+v_lastday:= last_day(p_date)-p_date;
+v_cursal:= p_sal-(v_lastday * p_sal/(TO_CHAR(last_day(p_date),'dd')));
+
+return v_cursal;
+
+end;
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE('current salary ' || calc_sal('29-OCT-22',250));
+END;
